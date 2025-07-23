@@ -7,13 +7,31 @@
     <title>rock paper scissors</title>
 </head>
 <body>
+
     <div class="pictures">
+    
     <input type="image" src="./pictures/rock.png" alt="rock" height="250px" class="rock">
     <input type="image" src="./pictures/paper.png" alt="paper" height="250px" class="paper">
     <input type="image" src="./pictures/scissors.png" alt="scissors" height="250px" class="scissors">
     </div>
 
-  
+    <div class="container">
+        <div class="score">
+            <h4>Score</h4>
+            <p class="one">Round 1 winner: </p>
+            <p class="two">Round 2 winner: </p>
+            <p class="three">Round 3 winner: </p>
+            <p class="four">Round 4 winner: </p>
+            <p class="five">Round 5 winner: </p>
+            <h4 class="final"> </h4>        
+            <button>Clear all</button>
+
+    </div> 
+        </div>
+        
+    
+
+
 
 
     <script>
@@ -33,37 +51,94 @@
             const rock = document.querySelector(".rock"); // connects js to html
             const paper = document.querySelector(".paper");
             const scissors = document.querySelector(".scissors");
+            const one = document.querySelector(".one");
+            const two = document.querySelector(".two");
+            const three = document.querySelector(".three");
+            const four = document.querySelector(".four");
+            const five = document.querySelector(".five");
+            
+
+            const pictures = document.querySelector(".pictures");
+            const green = document.querySelector(".green");
 
             rock.addEventListener("click", () => playRound("rock"));
             paper.addEventListener("click", () => playRound("paper"));
             scissors.addEventListener("click", () => playRound("scissors"));
+        }
 
+            let round = 1;
+            let playerScore = 0;
+            let computerScore= 0;
             
             function playRound(human) {
             let computer = getComputerChoice();
+            let result = "";
 
             if (human === computer) {
                 alert(`computer choice: ${computer}. ` + "It is a tie!");
-            }
+                result =  "TIE";
+            }  
 
             else if (
             (human === "rock" && computer === "scissors") ||
             (human === "paper" && computer === "rock") ||
             (human === "scissors" && computer === "paper")
-            )
+        ) {
+            
             alert(`computer choice: ${computer}. ` + "damn it you won this one");
+            result = "YOU!";
+            playerScore++;
+            }
+          
 
-            else if (
+            else if(
             (human === "rock" && computer === "paper") ||
             (human === "paper" && computer === "scissors") ||
             (human === "scissors" && computer === "rock")
-            )
-            alert(`computer choice: ${computer}. ` + "HAHA take that");
+        )  
+          {  
+            alert(`computer choice: ${computer}. ` + "HAHA take that"); 
+            result = "ME";
+            computerScore++;
+        }
+    
+         
+        const roundClass = [".one", ".two", ".three", ".four", ".five"];
+        if (round <=5) {
+             document.querySelector(roundClass[round-1]).textContent = `Round ${round} winner: ${result}`;
+             
+        }
+        if (round ===5){
+            const final = document.querySelector(".final");
+            if (playerScore>computerScore){
+            final.style.display = "flex";
+            final.textContent +="THE WINNER WINNER IS: " + "YOU!! CONGRATULATIONS";
+        }
+
+        else if(playerScore<computerScore){
+            final.style.display = "flex";
+            final.textContent ="THE WINNER WINNER IS: " + "ME! BOO YA!";
+        }
+
+        else if(playerScore==computerScore){
+            final.style.display = "flex";
+            final.textContent ="THE WINNER WINNER IS: " + "IT IS A TIE!";
         }
         }
-        
-        
+        round++;
+
+        const clear = document.querySelector("button");
+         const final = document.querySelector(".final");
+        clear.addEventListener("click", () => roundClass.forEach((selector, index) => {
+            document.querySelector(selector).textContent = `Round ${index + 1} winner: ` 
+        round = "1"})
+            
+       );
+       clear.addEventListener("click", () => {final.style.display = "none";})
+    }
         humanChoice();
+
+
     </script>
 </body>
 </html>
