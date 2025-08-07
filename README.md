@@ -1,3 +1,3 @@
 a little game of rock paper scissoring never hurt no one. 
 
-go to pages under settings to review it live!
+<a href = "https://pavanakaranam.github.io/JS-RockPaper-Scissor-em-game/">Review it live!</a>
